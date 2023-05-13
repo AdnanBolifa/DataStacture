@@ -1,1 +1,1 @@
-# DataStacture And Automata Majdy Afat
+# Data structure And Automata Majdy Afat
