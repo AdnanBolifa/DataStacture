@@ -9,6 +9,39 @@ struct Product
     int amount;
     double price;
 };
+class Stack 
+{
+    static const int MAX_SIZE = 100;
+    Product data[MAX_SIZE];
+    int topIndex;
+public:
+    Stack() : topIndex(-1) {}
+    void push(const Product& p) {
+        if (topIndex == MAX_SIZE - 1) {
+            cout << "Stack is full" << endl;
+            return;
+        }
+        topIndex++;
+        data[topIndex] = p;
+    }
+    void pop() {
+        if (topIndex == -1) {
+            cout << "Stack is empty" << endl;
+            return;
+        }
+        topIndex--;
+    }
+    Product top() const {
+        if (topIndex == -1) {
+            cout << "Stack is empty" << endl;
+            return { "", 0, 00, 0 };
+        }
+        return data[topIndex];
+    }
+    bool empty() const {
+        return topIndex == -1;
+    }
+};
 
 class Homework
 {
@@ -61,6 +94,4 @@ public:
             cout << "Product not found" << endl;
         }
     }
-private:
-
 };

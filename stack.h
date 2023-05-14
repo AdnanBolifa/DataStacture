@@ -1,70 +1,45 @@
 #include <iostream>
-#include "DsHomework.h"
 
 using namespace std;
 
-class Stack 
+class stack1
 {
-    
-    static const int MAX_SIZE = 100;
-    Product data[MAX_SIZE];
-    int topIndex;
+    static const int M = 100;
+    int ara[M]; // declared an array for storing the stack elemenst
+    int top; // finding the top value
 public:
-    Stack() : topIndex(-1) {}
-    void push(const Product& p) {
-        if (topIndex == MAX_SIZE - 1) {
-            cout << "Stack is full" << endl;
-            return;
-        }
-        topIndex++;
-        data[topIndex] = p;
-    }
-    void pop() {
-        if (topIndex == -1) {
-            cout << "Stack is empty" << endl;
-            return;
-        }
-        topIndex--;
-    }
-    Product top() const {
-        if (topIndex == -1) {
-            cout << "Stack is empty" << endl;
-            return { "", 0, 0, 0 };
-        }
-        return data[topIndex];
-    }
-    bool empty() const {
-        return topIndex == -1;
-    }
-    void deleteProduct(Product products[], int& numProducts, const string& name, Stack& undoStack)
+    //function for pushing values into the stack
+    stack1() // constructor for initializing
     {
-        Homework ds;
-        int index = ds.findProduct(products, numProducts, name);
-        if (index != -1) {
-            undoStack.push(products[index]);
-            for (int i = index; i < numProducts - 1; i++) {
-                products[i] = products[i + 1];
-            }
-            numProducts--;
-            cout << "Product deleted" << endl;
+        top = 0;
+    }
+    void push(int n)
+    {
+        if (top == M) // checking if the stack is full or not
+        {
+            cout << "Stack is full\n";
+            return;
         }
-        else {
-            cout << "Product not found" << endl;
+        else // if the stack is not full, push the element
+        {
+            ara[top++] = n;
+        }
+    }
+    //function for poping out elements from the stack or getting the elements
+    int pop()
+    {
+        if (top == 0)
+        {
+            cout << "Stack is empty\n";
+            return NULL;
+        }
+        else
+        {
+            top--;
+            return ara[top];
         }
     }
 
-     void undoDelete(Product products[], int& numProducts, Stack& undoStack) {
-        if (!undoStack.empty()) {
-            Product p = undoStack.top();
-            undoStack.pop();
-            products[numProducts] = p;
-            numProducts++;
-            cout << "Undo successful: " << p.name << endl;
-        }
-        else {
-            cout << "Nothing to undo" << endl;
-        }
-    }
 };
 
 
