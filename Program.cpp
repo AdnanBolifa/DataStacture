@@ -10,7 +10,7 @@ int main()
 { 
     DataStracture ds;
     Automata autom;
-    Homework1 hw;
+    Homework hw;
     //autom.FileSearch("MyFile.txt");
     const int MAX_PRODUCTS = 100;
     Product products[MAX_PRODUCTS];
@@ -28,7 +28,7 @@ int main()
 
     int index = hw.findProduct(products, numProducts, "iPhone 14");
     cout << "Product found: " << products[index].price << endl;
-    //
+    ////
     Product p6 = { "iPhone 8", 4, 7, 100 };
     hw.editProduct(products, numProducts, "iPhone 6", p6);
     index = hw.findProduct(products, numProducts, "iPhone 8");
@@ -38,7 +38,7 @@ int main()
     else {
         cout << "Product not found" << endl;
     }
-    //
+    ////
     Stack undoStack;
     undoStack.deleteProduct(products, numProducts, "iPhone 11", undoStack);
     undoStack.undoDelete(products, numProducts, undoStack);
@@ -46,7 +46,7 @@ int main()
     {
         cout << products[i].name << endl;;
     }
-    //
+ 
 
     
     

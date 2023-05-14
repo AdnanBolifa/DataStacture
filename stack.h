@@ -36,9 +36,9 @@ public:
     bool empty() const {
         return topIndex == -1;
     }
-    static void deleteProduct(Product products[], int& numProducts, const string& name, Stack& undoStack)
+    void deleteProduct(Product products[], int& numProducts, const string& name, Stack& undoStack)
     {
-        Homework1 ds;
+        Homework ds;
         int index = ds.findProduct(products, numProducts, name);
         if (index != -1) {
             undoStack.push(products[index]);
@@ -53,7 +53,7 @@ public:
         }
     }
 
-    static void undoDelete(Product products[], int& numProducts, Stack& undoStack) {
+     void undoDelete(Product products[], int& numProducts, Stack& undoStack) {
         if (!undoStack.empty()) {
             Product p = undoStack.top();
             undoStack.pop();

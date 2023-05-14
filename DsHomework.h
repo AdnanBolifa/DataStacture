@@ -2,18 +2,17 @@
 #include <iostream>
 using namespace std;
 
-struct Product 
+struct Product
 {
     string name;
     int id;
     int amount;
     double price;
 };
-class Homework1
+
+class Homework
 {
 public:
-	Homework1();
-	~Homework1();
 
     void addProduct(Product products[], int& numProducts, const Product& p) {
         products[numProducts] = p;
