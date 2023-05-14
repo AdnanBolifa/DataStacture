@@ -1,8 +1,5 @@
 #pragma once
 #include <iostream>
-#include <fstream>
-#include <string>
-#include "stack"
 using namespace std;
 
 struct Product 
@@ -14,10 +11,10 @@ struct Product
 };
 class Homework1
 {
-    Stack1 stack;
 public:
 	Homework1();
 	~Homework1();
+
     void addProduct(Product products[], int& numProducts, const Product& p) {
         products[numProducts] = p;
         numProducts++;
@@ -39,20 +36,7 @@ public:
         else {
             cout << "Product not found" << endl;
         }
-    }
-    void deleteProduct(Product products[], int& numProducts, const string& name, Stack1& undoStack) {
-        int index = findProduct(products, numProducts, name);
-        if (index != -1) {
-            for (int i = index; i < numProducts - 1; i++) {
-                products[i] = products[i + 1];
-            }
-            numProducts--;
-            cout << "Product deleted" << endl;
-        }
-        else {
-            cout << "Product not found" << endl;
-        }
-    }  
+    } 
     void sellProduct(Product products[], int numProducts, const string& name) {
         int index = findProduct(products, numProducts, name);
         if (index != -1) {
@@ -78,27 +62,6 @@ public:
             cout << "Product not found" << endl;
         }
     }
-    void undoDelete(Product products[], int& numProducts, Stack1& undoStack) {
-        if (!undoStack.empty()) {
-            Product p = undoStack.top();
-            undoStack.pop();
-            products[numProducts] = p;
-            numProducts++;
-            cout << "Undo successful: " << p.name << endl;
-        }
-        else {
-            cout << "Nothing to undo" << endl;
-        }
-    }
-
 private:
 
 };
-
-Homework1::Homework1()
-{
-}
-
-Homework1::~Homework1()
-{
-}
