@@ -14,6 +14,7 @@ struct Product
 };
 class Homework1
 {
+    Stack1 stack;
 public:
 	Homework1();
 	~Homework1();
@@ -39,7 +40,7 @@ public:
             cout << "Product not found" << endl;
         }
     }
-    void deleteProduct(Product products[], int& numProducts, const string& name) {
+    void deleteProduct(Product products[], int& numProducts, const string& name, Stack1& undoStack) {
         int index = findProduct(products, numProducts, name);
         if (index != -1) {
             for (int i = index; i < numProducts - 1; i++) {
@@ -50,18 +51,6 @@ public:
         }
         else {
             cout << "Product not found" << endl;
-        }
-    }
-    void deleteProduct(Product products[], int &numProducts, const string &name) {
-    int index = findProduct(products, numProducts, name);
-    if (index != -1) {
-        for (int i = index; i < numProducts - 1; i++) {
-            products[i] = products[i + 1];
-        }
-        numProducts--;
-        cout << "Product deleted" << endl;
-    } else {
-        cout << "Product not found" << endl;
         }
     }  
     void sellProduct(Product products[], int numProducts, const string& name) {
@@ -89,7 +78,7 @@ public:
             cout << "Product not found" << endl;
         }
     }
-    void undoDelete(Product products[], int& numProducts, stack<Product>& undoStack) {
+    void undoDelete(Product products[], int& numProducts, Stack1& undoStack) {
         if (!undoStack.empty()) {
             Product p = undoStack.top();
             undoStack.pop();

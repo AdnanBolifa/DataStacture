@@ -1,45 +1,37 @@
 #pragma once
 #include <iostream>
-#define M 4 //defined the size of the stack ;
 using namespace std;
 //stack class for controlling
 
-class stack1
-{
-    int ara[M]; // declared an array for storing the stack elemenst
-    int top; // finding the top value
+class Stack1 {
+    static const int MAX_SIZE = 100;
+    Product data[MAX_SIZE];
+    int topIndex;
 public:
-    //function for pushing values into the stack
-    stack1() // constructor for initializing
-    {
-        top = 0;
-    }
-    void push(int n)
-    {
-        if (top == M) // checking if the stack is full or not
-        {
-            cout << "Stack is full\n";
+    Stack1() : topIndex(-1) {}
+    void push(const Product& p) {
+        if (topIndex == MAX_SIZE - 1) {
+            cout << "Stack is full" << endl;
             return;
         }
-        else // if the stack is not full, push the element
-        {
-            ara[top++] = n;
-        }
+        topIndex++;
+        data[topIndex] = p;
     }
-    //function for poping out elements from the stack or getting the elements
-    int pop()
-    {
-        if (top == 0)
-        {
-            cout << "Stack is empty\n";
-            return NULL;
+    void pop() {
+        if (topIndex == -1) {
+            cout << "Stack is empty" << endl;
+            return;
         }
-        else
-        {
-            top--;
-            return ara[top];
-        }
+        topIndex--;
     }
-
+    Product top() const {
+        if (topIndex == -1) {
+            cout << "Stack is empty" << endl;
+            return { "", 0, 0, 0.0 };
+        }
+        return data[topIndex];
+    }
+    bool empty() const {
+        return topIndex == -1;
+    }
 };
-
