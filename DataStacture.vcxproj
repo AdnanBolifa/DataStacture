@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="Automata.h" />
     <ClInclude Include="DataStructures.h" />
+    <ClInclude Include="DsHomework.h" />
     <ClInclude Include="stack.h" />
   </ItemGroup>
   <ItemGroup>

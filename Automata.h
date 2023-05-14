@@ -13,7 +13,8 @@ public:
     string line2;
     string line3;
     string line4;
-    string line5[100][100];
+    string line5;
+    
     char ch;
     int numLines = 0;
 
@@ -28,18 +29,25 @@ public:
         }
         else
         {
-            //cout << NOL(fileName) << endl;
-            char ch;
+            int rows = NOL(fileName) - 4;
+            int cols = 5;
+            string** _2D = new string* [rows];
+            for (int i = 0; i < rows; i++)
+                _2D[i] = new string[cols];
 
+            char ch;
+            int j = 0, i = 0;
             while (1)
             {
-                nextChar:
+                
+            nextChar:
                     myfile >> noskipws >> ch;
                 if (myfile.eof())
                     break;
                 if (ch == '\n') 
                 {
                     numLines++;
+                    j = 0;
                     goto nextChar;
                 }
 
@@ -58,17 +66,27 @@ public:
                     line4 += ch;
                     break;
                 default:
+                    _2D[i][j++] = ch;
                     break;
                 }
+                i++;
             }
-            cout << line1 << endl;
-            cout << line2 << endl;
-            cout << line3 << endl;
-            cout << line4 << endl;
+            for (size_t i = 0; i < rows; i++)
+            {
+                for (size_t j = 0; j < cols; j++)
+                {
+                    cout<<_2D[i][j];
+                }
+                cout << endl;
+            }
+            for (int i = 0; i < rows; i++)
+                delete[] _2D[i];
+            delete[] _2D;
         }
         myfile.close();
+        
     }
-
+    
 private:
     int NOL(string fileName)
     {

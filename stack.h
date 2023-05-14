@@ -4,13 +4,13 @@
 using namespace std;
 //stack class for controlling
 
-class stack
+class stack1
 {
     int ara[M]; // declared an array for storing the stack elemenst
     int top; // finding the top value
 public:
     //function for pushing values into the stack
-    stack() // constructor for initializing
+    stack1() // constructor for initializing
     {
         top = 0;
     }
