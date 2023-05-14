@@ -8,7 +8,7 @@
 using namespace std;
 
 int main() 
-{
+{ 
     DataStracture ds;
     Automata autom;
     Homework1 hw;
