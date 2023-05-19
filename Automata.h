@@ -6,19 +6,18 @@ using namespace std;
 class Automata
 {
 public:
-    Automata();
-    ~Automata();
+   static const int MAX_SIZE = 25;
 
-
-    string states;
-    string alphabet;
+    string states[MAX_SIZE];
+    string alphabet[MAX_SIZE];
     string startState;
-    string endState;
-    string transitionTable[10][10];
-    
+    string endState[MAX_SIZE];
+    string transition_table[MAX_SIZE][MAX_SIZE];
+    string fileName;
+    int sizeOfAlpha;
     void FileSearch(string fileName)
     {
-        int numLines = 0;
+        this->fileName = fileName;
         ifstream myfile(fileName);
         if (!myfile)
         {
@@ -26,90 +25,66 @@ public:
         }
         else
         {
-            char ch;
-            while (1)
-            {
-                
-            nextChar:
-                    myfile >> noskipws >> ch;
-                if (myfile.eof())
-                    break;
-                if (ch == '\n') 
-                {
-                    numLines++;
-                    goto nextChar;
-                }
+            string temp;
+                getline(myfile, temp);
+                AddToArray(states, temp);
 
-                switch (numLines)
+                getline(myfile, temp);
+                sizeOfAlpha = removeSpaces(temp);
+                AddToArray(alphabet, temp);
+
+                getline(myfile, temp);
+                startState = temp;
+
+                getline(myfile, temp);
+                AddToArray(endState, temp);
+
+                for (int i = 0; i < NOL() - 4; i++)
                 {
-                case 0:
-                    states += ch;
-                    break;
-                case 1:
-                    alphabet += ch;
-                    break;
-                case 2:
-                    startState += ch;
-                    break;
-                case 3:
-                    endState += ch;
-                    break;
-                default:
-                    for (size_t i = 0; i < NOL(fileName) - 4; i++)
-                    {
-                        for (size_t j = 0; j < 25; j++)
-                        {
-                            transitionTable[i][j] += ch;
-                            myfile >> noskipws >> ch;
-                            if (ch == '\n') {
-                                myfile >> noskipws >> ch;
-                                break;
-                            }
-                                
-                        }
-                    }
-                    break;
+                    getline(myfile, temp);
+                    AddTo2DArray(transition_table, temp, i);
                 }
-            }
         }
         myfile.close();
     }
-    void putIntoArray()
-    {
-
-    }
-    bool ValidWord(string word)
-    {
-        for (int  i = 0; i < word.length(); i++)
-        {
-            if (!ValidAlphabet(word[i])) {
-                cout << word[i] << " not a valid chr\n";
-                return false;
-            }
-                
-        }
-        return true;
-    }
-
-    string currentState;
-    void NextState(string word)
+   
+    void nextState(string word)
     {
         if (ValidWord(word))
         {
-            currentState = startState;
+            int rows = 0;
+            int j = 0;
+            string currentState = startState;
             for (int i = 0; i < word.length(); i++)
             {
-                if (word[i] == alphabet[0])
+                string temp = currentState;
+                while (j != sizeOfAlpha)
                 {
-                    
+                    if (alphabet[j] == string(1, word[i]))//01
+                    {
+                        currentState = transition_table[rows][j];
+                    }
+                    j++;
+
                 }
+                if (temp != currentState)
+                {
+                    rows++;
+                    j = 0;
+                }
+                j = 0;
+
+            }
+            cout << currentState << "\n";
+            if (currentState == endState[0])
+            {
+                cout << "Accepted!..";
             }
         }
     }
 
-
 private:
-    int NOL(string fileName) // number of lines
+    int NOL() // number of lines
     {
         ifstream myFile(fileName);
         string line;
@@ -124,11 +99,24 @@ private:
     }
     bool ValidAlphabet(char chr)
     {
-        for (int i = 0; i < alphabet.length(); i++)
+        for (int i = 0; i < MAX_SIZE; i++)
         {
-            if (alphabet[i] == chr) return true;
+            if (alphabet[i] == string(1, chr)) 
+                return true;
         }
         return false;
+    }
+    bool ValidWord(string word)
+    {
+        for (int i = 0; i < word.length(); i++)
+        {
+            if (!ValidAlphabet(word[i])) {
+                cout << word[i] << " not a valid chr\n";
+                return false;
+            }
+
+        }
+        return true;
     }
     int numberOfCols(string alphabet)
     {
@@ -142,26 +130,44 @@ private:
         }
         return cols;
     }
-    void removeSpaces(string& str)
+    int removeSpaces(string str)
     {
         // To keep track of non-space character count
-        int count = 0;
+        size_t pos = str.find(' ');
+        while (pos != std::string::npos) {
+            str.replace(pos, 1, "");
+            pos = str.find(' ');
+        }
+        return str.length();
+    }
+    void AddToArray(string(&arr)[MAX_SIZE], string temp)
+    {
+        int j = 0;
+        for (int i = 0; i < temp.length(); i++)
+        {
+            if (temp[i] == ' ')
+            {
+                j++;
+                continue;
+            }
+            arr[j] += temp[i];
 
-        // Traverse the given string. If current character
-        // is not space, then place it at index 'count++'
-        for (int i = 0; str[i]; i++)
-            if (str[i] != ' ')
-                str[count++] = str[i]; // here count is
-        // incremented
-        str[count] = '\0';
+        }
+    }
+    void AddTo2DArray(string(&arr)[MAX_SIZE][MAX_SIZE], string temp, int row)
+    {
+        int j = 0;
+        int k = 0;
+        for (int i = 0; i < temp.length(); i++)
+        {
+            if (temp[i] == ' ')
+            {
+                j++;
+                continue;
+            }
+            arr[row][j] += temp[i];
+
+        }
     }
     
 };
-
-Automata::Automata()
-{
-}
-
-Automata::~Automata()
-{
-}
