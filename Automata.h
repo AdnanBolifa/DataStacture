@@ -9,19 +9,16 @@ public:
     Automata();
     ~Automata();
 
-    string line1;
-    string line2;
-    string line3;
-    string line4;
-    string line5;
-    
-    char ch;
-    int numLines = 0;
 
+    string states;
+    string alphabet;
+    string startState;
+    string endState;
+    string transitionTable[10][10];
+    
     void FileSearch(string fileName)
     {
         int numLines = 0;
-        string line;
         ifstream myfile(fileName);
         if (!myfile)
         {
@@ -29,14 +26,7 @@ public:
         }
         else
         {
-            int rows = NOL(fileName) - 4;
-            int cols = 5;
-            string** _2D = new string* [rows];
-            for (int i = 0; i < rows; i++)
-                _2D[i] = new string[cols];
-
             char ch;
-            int j = 0, i = 0;
             while (1)
             {
                 
@@ -47,48 +37,79 @@ public:
                 if (ch == '\n') 
                 {
                     numLines++;
-                    j = 0;
                     goto nextChar;
                 }
 
                 switch (numLines)
                 {
                 case 0:
-                    line1 += ch;
+                    states += ch;
                     break;
                 case 1:
-                    line2 += ch;
+                    alphabet += ch;
                     break;
                 case 2:
-                    line3 += ch;
+                    startState += ch;
                     break;
                 case 3:
-                    line4 += ch;
+                    endState += ch;
                     break;
                 default:
-                    _2D[i][j++] = ch;
+                    for (size_t i = 0; i < NOL(fileName) - 4; i++)
+                    {
+                        for (size_t j = 0; j < 25; j++)
+                        {
+                            transitionTable[i][j] += ch;
+                            myfile >> noskipws >> ch;
+                            if (ch == '\n') {
+                                myfile >> noskipws >> ch;
+                                break;
+                            }
+                                
+                        }
+                    }
                     break;
                 }
-                i++;
             }
-            for (size_t i = 0; i < rows; i++)
-            {
-                for (size_t j = 0; j < cols; j++)
-                {
-                    cout<<_2D[i][j];
-                }
-                cout << endl;
-            }
-            for (int i = 0; i < rows; i++)
-                delete[] _2D[i];
-            delete[] _2D;
         }
         myfile.close();
-        
     }
-    
+    void putIntoArray()
+    {
+
+    }
+    bool ValidWord(string word)
+    {
+        for (int  i = 0; i < word.length(); i++)
+        {
+            if (!ValidAlphabet(word[i])) {
+                cout << word[i] << " not a valid chr\n";
+                return false;
+            }
+                
+        }
+        return true;
+    }
+
+    string currentState;
+    void NextState(string word)
+    {
+        if (ValidWord(word))
+        {
+            currentState = startState;
+            for (int i = 0; i < word.length(); i++)
+            {
+                if (word[i] == alphabet[0])
+                {
+                    
+                }
+            }
+        }
+    }
+
+
 private:
-    int NOL(string fileName)
+    int NOL(string fileName) // number of lines
     {
         ifstream myFile(fileName);
         string line;
@@ -101,6 +122,40 @@ private:
         myFile.close();
         return count;
     }
+    bool ValidAlphabet(char chr)
+    {
+        for (int i = 0; i < alphabet.length(); i++)
+        {
+            if (alphabet[i] == chr) return true;
+        }
+        return false;
+    }
+    int numberOfCols(string alphabet)
+    {
+        int cols = 0;
+        for (int i = 0; i < alphabet.length(); i++)
+        {
+            
+            if (alphabet[i] != ' ')
+                cols++;;
+            
+        }
+        return cols;
+    }
+    void removeSpaces(string& str)
+    {
+        // To keep track of non-space character count
+        int count = 0;
+
+        // Traverse the given string. If current character
+        // is not space, then place it at index 'count++'
+        for (int i = 0; str[i]; i++)
+            if (str[i] != ' ')
+                str[count++] = str[i]; // here count is
+        // incremented
+        str[count] = '\0';
+    }
+    
 };
 
 Automata::Automata()
