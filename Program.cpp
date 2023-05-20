@@ -5,8 +5,6 @@
 #include <fstream>
 using namespace std;
 
-
-
 void deleteProduct(Product products[], int& numProducts, const string& name, Stack& undoStack)
 {
     Homework ds;
@@ -23,7 +21,6 @@ void deleteProduct(Product products[], int& numProducts, const string& name, Sta
         cout << "Product not found" << endl;
     }
 }
-
 void undoDelete(Product products[], int& numProducts, Stack& undoStack) {
     if (!undoStack.empty()) {
         Product p = undoStack.top();
@@ -36,7 +33,6 @@ void undoDelete(Product products[], int& numProducts, Stack& undoStack) {
         cout << "Nothing to undo" << endl;
     }
 }
-
 void DisplayArray(string arr[], int size, bool is2D)  // Clear
 {
     for (int i = 0; i < size; i++)
@@ -59,13 +55,12 @@ void Display2dArray(string arr[][25], int rows)
 int main() 
 { 
     DataStracture ds;
-    Automata autom;
     Homework hw;
-
-    autom.FileSearch("MyFile.txt");
     string word;
+
     cout << "Language L which: L = {x01y : x,y < {0,1}* }.\n";
     cout << "Enter your word: ";
+
     getline(std::cin, word);
-    autom.nextState(word);
+    Automata autom("MyFile.txt", word);
 }
