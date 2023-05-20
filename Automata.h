@@ -71,11 +71,8 @@ private:
                 while (j != sizeOfAlpha)
                 {
                     if (alphabet[j] == string(1, word[i]))//01
-                    {
                         currentState = transition_table[rows][j];
-                    }
                     j++;
-
                 }
                 if (temp != currentState)
                 {
@@ -85,11 +82,11 @@ private:
                 j = 0;
 
             }
-            cout << currentState << "\n";
+            cout <<"Current state: " << currentState << "\n";
             if (currentState == endState[0])
-            {
-                cout << "Accepted!..";
-            }
+                cout << "\tAccepted!..\n";
+            else
+                cout << "\tNot Accepted!..\n";
         }
     }
     int NOL() // number of lines
@@ -119,7 +116,7 @@ private:
         for (int i = 0; i < word.length(); i++)
         {
             if (!ValidAlphabet(word[i])) {
-                cout << word[i] << " not a valid chr\n";
+                cout << word[i] << " not a valid charecter!\n";
                 return false;
             }
 

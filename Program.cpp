@@ -58,7 +58,7 @@ int main()
     Homework hw;
     string word;
 
-    cout << "Language L which: L = {x01y : x,y < {0,1}* }.\n";
+    cout << "Language L which: L = {x<<01y : x,y < {0,1}* }\n";
     cout << "Enter your word: ";
 
     getline(std::cin, word);
