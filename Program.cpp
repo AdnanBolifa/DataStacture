@@ -58,20 +58,6 @@ int main()
     Homework hw;
     string word;
 
-    string al[2] = { "0","1" };
-    string word;
-
-    cout << "Enter your word: ";
-    cin >> word;
-
-    for (int i = 0; i < word.length(); i++)
-    {
-        for (int j = 0; j < 2; j++)
-        {
-            
-        }
-    }
-    exit(0);
     char c;
     do
     {

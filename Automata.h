@@ -71,7 +71,7 @@ private:
                         currentState = transition_table[rows][j];
                     j++;
                 }
-                if (temp != currentState)
+                if (temp != currentState)//TODO 
                 {
                     rows++;
                     j = 0;
