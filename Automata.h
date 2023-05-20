@@ -6,8 +6,8 @@ using namespace std;
 class Automata
 {
 public:
-   static const int MAX_SIZE = 25;
-   Automata(string fileName, string word) 
+    static const int MAX_SIZE = 25;
+    Automata(string fileName, string word) 
    {
        this->fileName = fileName;
        this->word = word;
@@ -21,9 +21,6 @@ public:
     string startState;
     string endState[MAX_SIZE];
     string transition_table[MAX_SIZE][MAX_SIZE];
-    
-    
-
 private:
     string fileName;
     string word;
@@ -106,7 +103,7 @@ private:
     {
         for (int i = 0; i < MAX_SIZE; i++)
         {
-            if (alphabet[i] == string(1, chr)) 
+            if (alphabet[i] == string(1, chr))
                 return true;
         }
         return false;

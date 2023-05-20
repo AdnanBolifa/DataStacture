@@ -58,9 +58,34 @@ int main()
     Homework hw;
     string word;
 
-    cout << "Language L which: L = {x<<01y : x,y < {0,1}* }\n";
-    cout << "Enter your word: ";
+    string al[2] = { "0","1" };
+    string word;
 
-    getline(std::cin, word);
-    Automata autom("MyFile.txt", word);
+    cout << "Enter your word: ";
+    cin >> word;
+
+    for (int i = 0; i < word.length(); i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            
+        }
+    }
+    exit(0);
+    char c;
+    do
+    {
+        cout << "Language L which: L = {x<<01y : x,y < {0,1}* }\n";
+        cout << "Enter your word: ";
+
+        getline(std::cin, word);
+        Automata autom("MyFile.txt", word);
+
+        printf("\nPress any key except Enter to exit...\n");
+        c = getchar(); // wait for user input
+        if (c != '\n') { // check if input is not Enter key
+            exit(0); // terminate the program
+        }
+    } while (c != 'q');
+    return 0;
 }
