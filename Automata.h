@@ -40,8 +40,7 @@ private:
         sizeOfAlpha = removeSpaces(temp);
         AddToArray(alphabet, temp);
 
-        getline(myfile, temp);
-        startState = temp;
+        getline(myfile, startState);
 
         getline(myfile, temp);
         AddToArray(endState, temp);
