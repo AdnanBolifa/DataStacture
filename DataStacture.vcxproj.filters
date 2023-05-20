@@ -40,5 +40,8 @@
     <Text Include="MyFile.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="OldAutomata.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

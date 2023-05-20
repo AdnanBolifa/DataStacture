@@ -1,3 +1,6 @@
+//OLDDD WORKING AUROMARA all by myself
+//i used chatgpt in my newest version of this homework to optimize
+//my code that it!!.
 #pragma once
 #include <iostream>
 #include <fstream>
@@ -30,26 +33,28 @@ private:
         if (!myfile)
         {
             cout << "No such file";
-            return;
         }
-        string temp;
-        getline(myfile, temp);
-        AddToArray(states, temp);
-
-        getline(myfile, temp);
-        sizeOfAlpha = removeSpaces(temp);
-        AddToArray(alphabet, temp);
-
-        getline(myfile, temp);
-        startState = temp;
-
-        getline(myfile, temp);
-        AddToArray(endState, temp);
-
-        for (int i = 0; i < NOL() - 4 && getline(myfile, temp); i++)
+        else
         {
+            string temp;
             getline(myfile, temp);
-            AddTo2DArray(transition_table, temp, i);
+            AddToArray(states, temp);
+
+            getline(myfile, temp);
+            sizeOfAlpha = removeSpaces(temp);
+            AddToArray(alphabet, temp);
+
+            getline(myfile, temp);
+            startState = temp;
+
+            getline(myfile, temp);
+            AddToArray(endState, temp);
+
+            for (int i = 0; i < NOL() - 4; i++)
+            {
+                getline(myfile, temp);
+                AddTo2DArray(transition_table, temp, i);
+            }
         }
         myfile.close();
     }
@@ -97,30 +102,42 @@ private:
         myFile.close();
         return count;
     }
+    bool ValidAlphabet(char chr)
+    {
+        for (int i = 0; i < MAX_SIZE; i++)
+        {
+            if (alphabet[i] == string(1, chr))
+                return true;
+        }
+        return false;
+    }
     bool ValidWord(string word)
     {
-        //word.find_first_not_of("01"); ???
-        for (char c : word)
+        for (int i = 0; i < word.length(); i++)
         {
-            bool charIsValid = false;
-            for (string validChar : alphabet)
-            {
-                if (c == validChar[0])
-                {
-                    charIsValid = true;
-                    break;
-                }
-            }
-            if (!charIsValid)
-            {
-                cout << c << ": is not a valid character!\n";
+            if (!ValidAlphabet(word[i])) {
+                cout << word[i] << " not a valid charecter!\n";
                 return false;
             }
+
         }
         return true;
-    }//By chatGPT
+    }
+    int numberOfCols(string alphabet)
+    {
+        int cols = 0;
+        for (int i = 0; i < alphabet.length(); i++)
+        {
+            
+            if (alphabet[i] != ' ')
+                cols++;;
+            
+        }
+        return cols;
+    }
     int removeSpaces(string str)
     {
+        // To keep track of non-space character count
         size_t pos = str.find(' ');
         while (pos != std::string::npos) {
             str.replace(pos, 1, "");
@@ -134,20 +151,25 @@ private:
         for (int i = 0; i < temp.length(); i++)
         {
             if (temp[i] == ' ')
+            {
                 j++;
-            else
-                arr[j] += temp[i];
+                continue;
+            }
+            arr[j] += temp[i];
+
         }
     }
-    void AddTo2DArray(string(&arr)[MAX_SIZE][MAX_SIZE], string line, int row)
+    void AddTo2DArray(string(&arr)[MAX_SIZE][MAX_SIZE], string temp, int row)
     {
         int j = 0;
-        for (int i = 0;i < line.length(); i++)
+        for (int i = 0; i < temp.length(); i++)
         {
-            if (line[i] == ' ')
+            if (temp[i] == ' ')
+            {
                 j++;
-            else
-                arr[row][j] += line[i];
+                continue;
+            }
+            arr[row][j] += temp[i];
         }
     }  
 };
