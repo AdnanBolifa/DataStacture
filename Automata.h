@@ -1,3 +1,4 @@
+//OLDDD WORKING AUROMARA
 #pragma once
 #include <iostream>
 #include <fstream>
@@ -7,13 +8,15 @@ class Automata
 {
 public:
     static const int MAX_SIZE = 25;
-    Automata(string fileName, string word) 
-   {
-       this->fileName = fileName;
-       this->word = word;
-       FileSearch();
-       nextState();
-   }
+    Automata(string fileName, string word)
+    {
+        this->fileName = fileName;
+        this->word = word;
+        FileSearch();
+        nextState();
+    }
+    
+private:
     int sizeOfAlpha;
 
     string states[MAX_SIZE];
@@ -21,7 +24,6 @@ public:
     string startState;
     string endState[MAX_SIZE];
     string transition_table[MAX_SIZE][MAX_SIZE];
-private:
     string fileName;
     string word;
     void FileSearch()
@@ -30,25 +32,28 @@ private:
         if (!myfile)
         {
             cout << "No such file";
-            return;
         }
-        string temp;
-        getline(myfile, temp);
-        AddToArray(states, temp);
-
-        getline(myfile, temp);
-        sizeOfAlpha = removeSpaces(temp);
-        AddToArray(alphabet, temp);
-
-        getline(myfile, startState);
-
-        getline(myfile, temp);
-        AddToArray(endState, temp);
-
-        for (int i = 0; i < NOL() - 4 && getline(myfile, temp); i++)
+        else
         {
+            string temp;
             getline(myfile, temp);
-            AddTo2DArray(transition_table, temp, i);
+            AddToArray(states, temp);
+
+            getline(myfile, temp);
+            sizeOfAlpha = removeSpaces(temp);
+            AddToArray(alphabet, temp);
+
+            getline(myfile, temp);
+            startState = temp;
+
+            getline(myfile, temp);
+            AddToArray(endState, temp);
+
+            for (int i = 0; i < NOL() - 4; i++)
+            {
+                getline(myfile, temp);
+                AddTo2DArray(transition_table, temp, i);
+            }
         }
         myfile.close();
     }
@@ -76,7 +81,7 @@ private:
                 j = 0;
 
             }
-            cout <<"Current state: " << currentState << "\n";
+            cout << "Current state: " << currentState << "\n";
             if (currentState == endState[0])
                 cout << "\tAccepted!..\n";
             else
@@ -120,6 +125,7 @@ private:
     }//By chatGPT
     int removeSpaces(string str)
     {
+        // To keep track of non-space character count
         size_t pos = str.find(' ');
         while (pos != std::string::npos) {
             str.replace(pos, 1, "");
@@ -133,20 +139,26 @@ private:
         for (int i = 0; i < temp.length(); i++)
         {
             if (temp[i] == ' ')
+            {
                 j++;
-            else
-                arr[j] += temp[i];
+                continue;
+            }
+            arr[j] += temp[i];
+
         }
     }
-    void AddTo2DArray(string(&arr)[MAX_SIZE][MAX_SIZE], string line, int row)
+    void AddTo2DArray(string(&arr)[MAX_SIZE][MAX_SIZE], string temp, int row)
     {
         int j = 0;
-        for (int i = 0;i < line.length(); i++)
+        for (int i = 0; i < temp.length(); i++)
         {
-            if (line[i] == ' ')
+            if (temp[i] == ' ')
+            {
                 j++;
-            else
-                arr[row][j] += line[i];
+                continue;
+            }
+            arr[row][j] += temp[i];
         }
-    }  
+    }
 };
+
