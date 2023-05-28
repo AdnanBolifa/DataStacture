@@ -251,7 +251,7 @@ void commands()
     cout << "| QUIT    | Quit the program           |\n";
     cout << "+---------|----------------------------+\n";
 }
-void saleSystem() 
+void saleSystem() //Change to main
 {
     string productName;
     int productId, productAmount;
