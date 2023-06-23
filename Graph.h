@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -20,7 +19,14 @@ public:
 
     void printGraph() {
         for (int i = 0; i < MAX_VERTICES; i++) {
-            if (adjList[i][0] == 0) // Skip vertices with no edges
+            bool hasEdges = false;
+            for (int j = 0; j < MAX_VERTICES; j++) {
+                if (adjList[i][j] == 1) {
+                    hasEdges = true;
+                    break;
+                }
+            }
+            if (!hasEdges)
                 continue;
 
             cout << i << " -> ";
@@ -33,39 +39,38 @@ public:
         }
     }
 
-    // Function to read edges and vertices from a text file and add them to a graph
-    void readGraphFromFile(const string& filename, Graph& graph) {
-        ifstream inputFile(filename);
-        if (!inputFile.is_open()) {
-            cerr << "Error opening file: " << filename << endl;
-            return;
+
+
+// Function to read edges and vertices from a text file and add them to a graph
+void readGraphFromFile(const string& filename, Graph& graph) {
+    ifstream inputFile(filename);
+    if (!inputFile.is_open()) {
+        cerr << "Error opening file: " << filename << endl;
+        return;
+    }
+
+    string line;
+    while (getline(inputFile, line)) {
+        istringstream iss(line);
+        int src, dest;
+        if (!(iss >> src >> dest)) {
+            cerr << "Error reading edge: " << line << endl;
+            continue;
         }
 
-        string line;
-        while (getline(inputFile, line)) {
-            istringstream iss(line);
-            int src, dest;
-            if (!(iss >> src >> dest)) {
-                cerr << "Error reading edge: " << line << endl;
-                continue;
-            }
-
-            graph.addEdge(src, dest);
-        }
-
-        inputFile.close();
+        graph.addEdge(src, dest);
     }
-    void GraphMain() {
-        Graph graph;
-        string filename = "graph.txt";
 
-        readGraphFromFile(filename, graph);
+    inputFile.close();
+}
 
-        graph.printGraph();
+void GraphMain() {
+    Graph graph;
+    string filename = "graph.txt";
 
-    }
+    readGraphFromFile(filename, graph);
+
+    graph.printGraph();
+
+}
 };
-
-
-
-
