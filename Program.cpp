@@ -5,8 +5,6 @@
 #include <fstream>
 using namespace std;
 
-
-
 void DisplayArray(string arr[], int size)  // Clear
 {
     for (int i = 0; i < size; i++)
@@ -31,6 +29,7 @@ int main()
     //cout << "Enter your word: ";
     //string word; cin >> word;
     //Automata autom("MyFile.txt", word);
-    saleSystem();
+    //saleSystem();
+    cout << "Hello, world!";
     return 0;
 }

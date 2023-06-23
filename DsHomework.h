@@ -13,7 +13,9 @@ enum states
     deleleted,
     edited
 };
+
 states currentState;
+
 struct Product {
     string name;
     int id;
@@ -23,8 +25,10 @@ struct Product {
     states state;
     int index;
 };
+
 Product products[MAX_PRODUCTS];
 int numProducts = 0;
+
 class Stack
 {
     Product data[MAX_PRODUCTS];
@@ -57,6 +61,7 @@ public:
         return topIndex == -1;
     }
 };
+
 Stack redoStack;
 Stack undoStack;
 
@@ -184,8 +189,9 @@ void undoAction()
     else if (undoProduct.state == states::edited)
     {
         cout << "editing Undone!\n";
+        redoStack.push(products[undoProduct.index]);
         products[undoProduct.index] = undoProduct;
-        redoStack.push(undoProduct);
+        
     }
     else
         cout << "nothing to be Undone!\n";
@@ -214,8 +220,8 @@ void redoAction()
     else if (undoProduct.state == states::edited)
     {
         cout << "editing Undone!\n";
+        undoStack.push(products[undoProduct.index]);
         products[undoProduct.index] = undoProduct;
-        undoStack.push(undoProduct);
     }
     else
         cout << "nothing to be Undone!\n";
@@ -249,7 +255,7 @@ void commands()
     cout << "| FIND    | Find a product             |\n";
     cout << "| HELP    | To show this menu again    |\n";
     cout << "| QUIT    | Quit the program           |\n";
-    cout << "+---------|----------------------------+\n";
+    cout << "+---------+----------------------------+\n";
 }
 void saleSystem() 
 {
