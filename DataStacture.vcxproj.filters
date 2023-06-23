@@ -35,12 +35,18 @@
     <ClInclude Include="Queue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="MyFile.txt">
       <Filter>Source Files</Filter>
     </Text>
     <Text Include="OldAutomata.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="graph.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

@@ -133,12 +133,14 @@
     <ClInclude Include="Automata.h" />
     <ClInclude Include="DataStructures.h" />
     <ClInclude Include="DsHomework.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="stack.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="MyFile.txt" />
     <Text Include="OldAutomata.txt" />
+    <Text Include="graph.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,7 @@
 #include "Automata.h"
 #include "DataStructures.h"
 #include "DsHomework.h"
+#include "Graph.h"
 #include <fstream>
 using namespace std;
 
@@ -30,6 +31,7 @@ int main()
     //string word; cin >> word;
     //Automata autom("MyFile.txt", word);
     //saleSystem();
-    cout << "Hello, world!";
+    Graph graph;
+    graph.GraphMain();
     return 0;
 }
