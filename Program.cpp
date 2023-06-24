@@ -32,6 +32,6 @@ int main()
     //Automata autom("MyFile.txt", word);
     //saleSystem();
     Graph graph;
-    graph.GraphMain();
+    graph.GraphMain(1, 4);
     return 0;
 }

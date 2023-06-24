@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "Queue.h"
+
 
 using namespace std;
 
@@ -40,37 +42,88 @@ public:
     }
 
 
+    void shortestPath(int src, int dest) {
+        MyQueue q;
+        int distance[MAX_VERTICES];
+        int parent[MAX_VERTICES];
 
-// Function to read edges and vertices from a text file and add them to a graph
-void readGraphFromFile(const string& filename, Graph& graph) {
-    ifstream inputFile(filename);
-    if (!inputFile.is_open()) {
-        cerr << "Error opening file: " << filename << endl;
-        return;
-    }
+        fill(distance, distance + MAX_VERTICES, INT_MAX);
+        fill(parent, parent + MAX_VERTICES, -1);
 
-    string line;
-    while (getline(inputFile, line)) {
-        istringstream iss(line);
-        int src, dest;
-        if (!(iss >> src >> dest)) {
-            cerr << "Error reading edge: " << line << endl;
-            continue;
+        q.push(src);
+        distance[src] = 0;
+
+        while (!q.isEmpty()) {
+            int current = q.front();
+            q.pop();
+
+            for (int i = 0; i < MAX_VERTICES; i++) {
+                if (adjList[current][i] == 1 && distance[i] == INT_MAX) {
+                    q.push(i);
+                    distance[i] = distance[current] + 1;
+                    parent[i] = current;
+
+                    if (i == dest)
+                        break;
+                }
+            }
         }
 
-        graph.addEdge(src, dest);
+        if (parent[dest] == -1) {
+            cout << "There is no path from " << src << " to " << dest << endl;
+            return;
+        }
+
+        cout << "Shortest path from " << src << " to " << dest << ": ";
+        int path[MAX_VERTICES];
+        int pathLength = 0;
+        int current = dest;
+
+        while (current != -1) {
+            path[pathLength++] = current;
+            current = parent[current];
+        }
+
+        for (int i = pathLength - 1; i >= 0; i--) {
+            cout << path[i];
+            if (i != 0)
+                cout << " -> ";
+        }
+        cout << endl;
     }
 
-    inputFile.close();
-}
 
-void GraphMain() {
-    Graph graph;
-    string filename = "graph.txt";
+// Function to read edges and vertices from a text file and add them to a graph
+    void readGraphFromFile(const string& filename, Graph& graph) {
+        ifstream inputFile(filename);
+        if (!inputFile.is_open()) {
+            cerr << "Error opening file: " << filename << endl;
+            return;
+        }
 
-    readGraphFromFile(filename, graph);
+        string line;
+        while (getline(inputFile, line)) {
+            istringstream iss(line);
+            int src, dest;
+            if (!(iss >> src >> dest)) {
+                cerr << "Error reading edge: " << line << endl;
+                continue;
+            }
 
-    graph.printGraph();
+            graph.addEdge(src, dest);
+        }
 
-}
+        inputFile.close();
+    }
+
+    void GraphMain(int src, int dest) {
+        Graph graph;
+        string filename = "graph.txt";
+
+        readGraphFromFile(filename, graph);
+
+        graph.printGraph();
+        graph.shortestPath(src, dest);
+
+    }
 };

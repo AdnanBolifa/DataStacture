@@ -19,7 +19,7 @@ public:
         elements = new int[capacity];
     }
 
-    void enqueue(int val)
+    void push(int val)
     {
         if (isFull()) {
             std::cout << "Queue is full" << std::endl;
@@ -30,7 +30,7 @@ public:
         count++;
     }
 
-    void dequeue()
+    void pop()
     {
         if (isEmpty()) {
             std::cout << "Queue is empty" << std::endl;
@@ -40,7 +40,7 @@ public:
         count--;
     }
 
-    int getFront() const
+    int front() const
     {
         if (isEmpty()) {
             std::cout << "Queue is empty" << std::endl;
@@ -49,7 +49,7 @@ public:
         return elements[frontIndex];
     }
 
-    int getRear() const
+    int rear() const
     {
         if (isEmpty()) {
             std::cout << "Queue is empty" << std::endl;
