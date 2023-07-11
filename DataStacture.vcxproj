@@ -134,6 +134,8 @@
     <ClInclude Include="DataStructures.h" />
     <ClInclude Include="DsHomework.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="stack.h" />
   </ItemGroup>
