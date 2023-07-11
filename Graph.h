@@ -2,7 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "Queue.h"
+#include <queue>
+#include <stack>
 
 
 using namespace std;
@@ -91,8 +92,6 @@ public:
         }
         cout << endl;
     }
-
-
 // Function to read edges and vertices from a text file and add them to a graph
     void readGraphFromFile(const string& filename, Graph& graph) {
         ifstream inputFile(filename);
@@ -125,5 +124,56 @@ public:
         graph.printGraph();
         graph.shortestPath(src, dest);
 
+    }
+    void BFS(int startVertex) {
+        bool* visited = new bool[V];
+        for (int i = 0; i < V; ++i)
+            visited[i] = false;
+
+        std::queue<int> queue;
+        visited[startVertex] = true;
+        queue.push(startVertex);
+
+        while (!queue.empty()) {
+            int currentVertex = queue.front();
+            std::cout << currentVertex << " ";
+            queue.pop();
+
+            Node* temp = array[currentVertex].head;
+            while (temp) {
+                int neighbor = temp->dest;
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.push(neighbor);
+                }
+                temp = temp->next;
+            }
+        }
+
+        delete[] visited;
+    }
+    void DFS(int startVertex) {
+        bool* visited = new bool[V];
+        for (int i = 0; i < V; ++i)
+            visited[i] = false;
+
+        std::stack<int> stack;
+        visited[startVertex] = true;
+        stack.push(startVertex);
+
+        while (!stack.empty()) {
+            int currentVertex = stack.top();
+            stack.pop();
+            std::cout << currentVertex << " ";
+
+            for (int i = 0; i < V; ++i) {
+                if (matrix[currentVertex][i] == 1 && !visited[i]) {
+                    visited[i] = true;
+                    stack.push(i);
+                }
+            }
+        }
+
+        delete[] visited;
     }
 };
